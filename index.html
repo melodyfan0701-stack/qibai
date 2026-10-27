@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>棲白 QIBAI Studio</title>
+  <meta name="description" content="棲白 QIBAI Studio｜減法新中式室內設計，服務住宅與茶室、民宿、選物店等小型商業空間。">
+
+  <!-- 有 JavaScript 時先隱藏進場元素，避免動畫開始前閃一下；3 秒內 GSAP 沒啟動就自動顯示 -->
+  <script>
+    document.documentElement.classList.add('js');
+    setTimeout(function () { document.documentElement.classList.remove('js'); }, 3000);
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- 水墨背景：竹、梅、松（由 ink-bg.js 繪製，固定在所有內容後面） -->
+  <div class="ink-bg" aria-hidden="true"></div>
+
+  <!-- ===== 0. 導覽列 ===== -->
+  <header class="site-nav" data-intro="nav">
+    <div class="nav-inner">
+      <a class="logo" href="#top" aria-label="棲白 QIBAI Studio 回到頂端">
+        <span class="logo-zh">棲白</span>
+        <span class="logo-en">QIBAI</span>
+      </a>
+      <nav aria-label="主要選單">
+        <ul class="nav-links">
+          <li><a href="#philosophy">理念</a></li>
+          <li><a href="#works">作品</a></li>
+          <li><a href="#tour">空間導覽</a></li>
+          <li><a href="#process">流程</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn-small" href="#contact">預約諮詢</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== 1. Hero ===== -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+
+      <!-- 左側直書標籤 -->
+      <p class="hero-vertical" data-intro="side">減法新中式　室內設計</p>
+
+      <div class="hero-text">
+        <!-- 朱砂印章 -->
+        <span class="seal" data-intro="seal" aria-hidden="true">棲<br>白</span>
+
+        <h1 class="hero-title" id="hero-title">
+          <!-- 給螢幕報讀器的完整句子 -->
+          <span class="sr-only">以東方的留白，安放現代的生活</span>
+          <!-- 給動畫用的版本：JavaScript 會把每個字拆開 -->
+          <span class="title-line" aria-hidden="true">以東方的留白，</span>
+          <span class="title-line" aria-hidden="true">安放現代的生活</span>
+        </h1>
+
+        <p class="hero-lead" data-intro="fade">
+          棲白為住宅與小型商業空間做設計。保留圓窗、格柵與借景，去掉多餘的裝飾，讓光、木與石材替空間說話。
+        </p>
+
+        <div class="hero-actions" data-intro="fade">
+          <a class="btn btn-primary" href="#contact">預約諮詢</a>
+          <a class="btn btn-ghost" href="#works">看作品</a>
+        </div>
+
+        <dl class="hero-meta" data-intro="fade">
+          <div><dt>住宅</dt><dd>20–80 坪</dd></div>
+          <div><dt>商業空間</dt><dd>茶室・民宿・選物店</dd></div>
+          <div><dt>工作室</dt><dd>台中</dd></div>
+        </dl>
+      </div>
+
+      <!-- 右側：水墨暈染的案例圖片。墨先暈開，照片再從墨裡浮現 -->
+      <div class="hero-art">
+        <figure class="ink-frame">
+          <svg class="ink-stage" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid meet"
+               role="img" aria-label="精選案例照片">
+            <defs>
+              <!-- 讓圓形邊緣變得不規則、像墨在宣紙上滲開 -->
+              <filter id="inkEdge" filterUnits="userSpaceOnUse" x="-200" y="-200" width="1200" height="1400">
+                <feTurbulence type="fractalNoise" baseFrequency="0.011" numOctaves="4" seed="4" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="110" xChannelSelector="R" yChannelSelector="G"/>
+                <feGaussianBlur stdDeviation="6"/>
+              </filter>
+              <!-- 淡墨：邊緣更散、更模糊 -->
+              <filter id="inkWash" filterUnits="userSpaceOnUse" x="-200" y="-200" width="1200" height="1400">
+                <feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="3" seed="9" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="150" xChannelSelector="R" yChannelSelector="G"/>
+                <feGaussianBlur stdDeviation="18"/>
+              </filter>
+
+              <!-- 兩組遮罩輪流使用：A、B 兩張照片交替出現 -->
+              <mask id="mask-a" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
+                <g filter="url(#inkEdge)" fill="#fff">
+                  <circle class="m-main" cx="400" cy="500" r="580"/><circle class="m-side" r="0"/><circle class="m-side" r="0"/>
+                </g>
+              </mask>
+              <mask id="mask-b" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="1000">
+                <g filter="url(#inkEdge)" fill="#fff">
+                  <circle class="m-main" r="0"/><circle class="m-side" r="0"/><circle class="m-side" r="0"/>
+                </g>
+              </mask>
+            </defs>
+
+            <!-- 照片層（JavaScript 會填入圖片路徑） -->
+            <g class="slot" mask="url(#mask-a)">
+              <image href="images/case-bamboo.jpg" width="800" height="1000" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+            <g class="slot" mask="url(#mask-b)">
+              <image width="800" height="1000" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+
+            <!-- 墨層：蓋在照片上，暈開後淡去 -->
+            <g class="ink" opacity="0">
+              <circle class="ink-wash" r="0" filter="url(#inkWash)"/>
+              <circle class="ink-core" r="0" filter="url(#inkEdge)"/>
+              <circle class="ink-dot" r="0" filter="url(#inkEdge)"/>
+              <circle class="ink-dot" r="0" filter="url(#inkEdge)"/>
+              <circle class="ink-dot" r="0" filter="url(#inkEdge)"/>
+            </g>
+          </svg>
+
+          <!-- 案例說明與切換 -->
+          <figcaption class="case-caption" data-intro="fade">
+            <p class="case-now">
+              <span class="case-name">竹影居</span>
+              <span class="case-info">住宅・台中・32 坪</span>
+              <button type="button" class="case-open">看完整案例</button>
+            </p>
+            <div class="case-switch" role="group" aria-label="切換精選案例">
+              <!-- 按鈕由 JavaScript 依案例資料產生 -->
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+
+      <!-- 底部木格柵 -->
+      <div class="lattice" aria-hidden="true"></div>
+
+    </section>
+
+    <!-- ===== 2. 設計理念 ===== -->
+    <section class="philosophy" id="philosophy" aria-labelledby="philo-title">
+      <div class="section-inner philo-layout">
+
+        <!-- 直書標題 -->
+        <h2 class="philo-title" id="philo-title">
+          <span class="sr-only">設計理念：減法新中式</span>
+          <span class="philo-title-text" aria-hidden="true">減法新中式</span>
+        </h2>
+
+        <div class="philo-main">
+          <p class="eyebrow">Philosophy</p>
+          <p class="philo-statement">
+            我們做的多半是減法。<br class="br-desk">
+            拿掉多餘的裝飾，留下光、材料，<br class="br-desk">
+            和生活真正需要的東西。
+          </p>
+
+          <ul class="concepts">
+            <li class="concept">
+              <figure class="concept-photo">
+                <img src="images/case-bamboo.jpg" alt="竹影居白牆上的樹影" loading="lazy"
+                     style="transform-origin: 72% 30%; transform: scale(1.7);">
+              </figure>
+              <div class="concept-head">
+                <span class="concept-mark" aria-hidden="true">白</span>
+                <h3>留白</h3>
+              </div>
+              <p>牆面不急著填滿。空著的地方讓光和影子有位置，也讓眼睛休息。</p>
+            </li>
+            <li class="concept">
+              <figure class="concept-photo">
+                <img src="images/case-minsu.jpg" alt="聽雨民宿落地窗外的花樹" loading="lazy"
+                     style="transform-origin: 12% 62%; transform: scale(1.8);">
+              </figure>
+              <div class="concept-head">
+                <span class="concept-mark" aria-hidden="true">景</span>
+                <h3>借景</h3>
+              </div>
+              <p>窗外的樹、山和街上的光，都是室內的一部分。窗開在哪裡、開多高，是我們最先決定的事。</p>
+            </li>
+            <li class="concept">
+              <figure class="concept-photo">
+                <img src="images/case-hillside.jpg" alt="半山宅粗面石材與間接光帶" loading="lazy"
+                     style="transform-origin: 50% 20%; transform: scale(2);">
+              </figure>
+              <div class="concept-head">
+                <span class="concept-mark" aria-hidden="true">材</span>
+                <h3>天然材質</h3>
+              </div>
+              <p>木、石、竹與土牆會隨時間留下痕跡。我們選擇會變老，而且老得好看的材料。</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. 專案圖庫 ===== -->
+    <section class="works" id="works" aria-labelledby="works-title">
+      <div class="section-inner">
+        <header class="works-head">
+          <div class="works-heading">
+            <p class="eyebrow">Projects</p>
+            <h2 class="section-title" id="works-title">專案圖庫</h2>
+            <p class="section-lead">每個案子都從屋主的生活開始。點開照片，看我們怎麼把需求變成空間。</p>
+          </div>
+
+          <!-- 分類篩選 -->
+          <div class="filters" role="group" aria-label="依空間類型篩選">
+            <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">
+              全部 <span class="count"></span>
+            </button>
+            <button type="button" class="filter-btn" data-filter="residential" aria-pressed="false">
+              住宅 <span class="count"></span>
+            </button>
+            <button type="button" class="filter-btn" data-filter="commercial" aria-pressed="false">
+              商業空間 <span class="count"></span>
+            </button>
+          </div>
+        </header>
+
+        <!-- 篩選結果的文字提示（給螢幕報讀器） -->
+        <p class="sr-only" role="status" id="filter-status"></p>
+
+        <!-- 案例卡片：由 works.js 依 data.js 產生 -->
+        <div class="project-grid"></div>
+      </div>
+    </section>
+
+    <!-- ===== 5. 空間導覽 ===== -->
+    <section class="tour" id="tour" aria-labelledby="tour-title">
+      <div class="section-inner">
+        <header class="tour-head">
+          <p class="eyebrow">Space Tour</p>
+          <h2 class="section-title" id="tour-title">走進竹影居</h2>
+          <p class="section-lead">32 坪、三房的住宅。點平面圖上的編號，照著進門後的動線，一間一間看。</p>
+        </header>
+
+        <div class="tour-layout">
+          <!-- 左：平面圖 -->
+          <div class="plan-wrap">
+            <div class="plan">
+              <svg class="plan-svg" viewBox="0 0 600 480" aria-hidden="true">
+                <!-- 房間色塊：目前選中的房間會上色 -->
+                <g class="rooms">
+                  <rect class="room" data-room="tea"    x="20"  y="20"  width="130" height="310"/>
+                  <rect class="room" data-room="entry"  x="20"  y="330" width="130" height="130"/>
+                  <rect class="room" data-room="dining" x="150" y="290" width="220" height="170"/>
+                  <rect class="room" data-room="master" x="370" y="20"  width="210" height="230"/>
+                </g>
+
+                <!-- 家具示意 -->
+                <g class="furniture">
+                  <rect x="34" y="40" width="102" height="170" stroke-dasharray="5 4"/>  <!-- 架高平台 -->
+                  <rect x="60" y="95" width="40" height="56"/>                           <!-- 茶桌 -->
+                  <rect x="200" y="70" width="120" height="38"/>                         <!-- 沙發 -->
+                  <rect x="225" y="150" width="70" height="40"/>                         <!-- 茶几 -->
+                  <rect x="170" y="330" width="40" height="80"/>                         <!-- 中島 -->
+                  <rect x="230" y="355" width="120" height="34"/>                        <!-- 餐桌 -->
+                  <rect x="420" y="70" width="110" height="130"/>                        <!-- 床 -->
+                  <rect x="420" y="40" width="110" height="14"/>                         <!-- 床頭格柵 -->
+                  <rect x="30" y="345" width="16" height="70"/>                          <!-- 玄關櫃 -->
+                  <line x1="150" y1="350" x2="150" y2="440" class="screen"/>             <!-- 屏風 -->
+                </g>
+
+                <!-- 隔間牆 -->
+                <g class="walls-inner">
+                  <path d="M20 330 H95 M125 330 H150"/>
+                  <path d="M150 20 V230 M150 290 V350 M150 440 V460"/>
+                  <path d="M370 20 V160 M370 215 V250 H430 M490 250 H580"/>
+                  <path d="M370 300 H390 M440 300 H500 M550 300 H580 M470 300 V460 M370 290 V460"/>
+                  <path d="M150 290 H200 M260 290 H370"/>
+                </g>
+
+                <!-- 外牆與窗 -->
+                <rect class="walls-outer" x="20" y="20" width="560" height="440"/>
+                <path class="wall-gap" d="M190 20 H330 M420 20 H540 M20 60 V200 M580 60 V200 M45 460 H105"/>
+                <path class="window-line" d="M190 17 H330 M190 23 H330 M420 17 H540 M420 23 H540 M17 60 V200 M23 60 V200 M577 60 V200 M583 60 V200"/>
+                <!-- 大門 -->
+                <path class="door" d="M45 460 L45 400 M45 400 A60 60 0 0 1 105 460"/>
+
+                <!-- 不可點的房間名稱 -->
+                <g class="room-labels">
+                  <text x="260" y="250">客廳</text>
+                  <text x="420" y="390">衛浴</text>
+                  <text x="525" y="390">次臥</text>
+                </g>
+              </svg>
+
+              <!-- 可點的熱點按鈕：由 tour.js 產生 -->
+              <div class="hotspots" role="group" aria-label="選擇空間"></div>
+            </div>
+
+            <!-- 比例尺與方位 -->
+            <div class="plan-legend" aria-hidden="true">
+              <span class="scale"><i></i><span class="ticks"><b>0</b><b>1</b><b>2</b><b>3 m</b></span></span>
+              <span class="north">N ↑</span>
+            </div>
+          </div>
+
+          <!-- 右：房間照片與說明 -->
+          <div class="room-view">
+            <figure class="room-photo">
+              <img class="room-img" src="images/tour-entry.jpg" alt="">
+            </figure>
+            <div class="room-text" aria-live="polite">
+              <p class="room-step"></p>
+              <h3 class="room-name"></h3>
+              <p class="room-desc"></p>
+              <ul class="material-list room-materials"></ul>
+            </div>
+            <div class="room-nav">
+              <button type="button" class="room-prev">上一個空間</button>
+              <button type="button" class="room-next">下一個空間</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 6. 服務流程 ===== -->
+    <section class="process" id="process" aria-labelledby="process-title">
+      <div class="section-inner">
+        <header class="process-head">
+          <p class="eyebrow">Process</p>
+          <h2 class="section-title" id="process-title">從第一次見面到交屋</h2>
+          <p class="section-lead">一間 30 坪左右的住宅，從諮詢到完工大約需要四到六個月。每一步都有明確的時間和交付內容。</p>
+        </header>
+
+        <div class="steps-wrap">
+          <!-- 時間軸線：捲動時由 GSAP 畫出來 -->
+          <div class="steps-track" aria-hidden="true"><span class="steps-progress"></span></div>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num">1</span>
+            <h3>諮詢</h3>
+            <p class="step-time">約 60 分鐘・免費</p>
+            <p>聊你的生活習慣、家人、預算與喜歡的空間，確認我們適不適合一起工作。</p>
+          </li>
+          <li class="step">
+            <span class="step-num">2</span>
+            <h3>丈量</h3>
+            <p class="step-time">3–5 天</p>
+            <p>到現場丈量、拍照，記錄採光方向、窗外景色和管線位置。</p>
+          </li>
+          <li class="step">
+            <span class="step-num">3</span>
+            <h3>提案</h3>
+            <p class="step-time">3–4 週</p>
+            <p>提出平面配置、3D 模擬與實體材料樣板，來回調整到你點頭為止。</p>
+          </li>
+          <li class="step">
+            <span class="step-num">4</span>
+            <h3>施工</h3>
+            <p class="step-time">2–4 個月</p>
+            <p>由固定合作的工班施作，每週回報進度照片，重要節點邀你到現場確認。</p>
+          </li>
+          <li class="step">
+            <span class="step-num">5</span>
+            <h3>完工</h3>
+            <p class="step-time">交屋後保固一年</p>
+            <p>一起驗收、交屋，附上材料保養說明。一年內有任何問題都可以找我們。</p>
+          </li>
+        </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 7. 預約諮詢 ===== -->
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="section-inner contact-layout">
+        <div class="contact-intro">
+          <p class="eyebrow">Contact</p>
+          <h2 class="section-title" id="contact-title">預約諮詢</h2>
+          <p class="section-lead">留下你的需求，我們會在兩個工作天內回信，約一個方便的時間見面。第一次諮詢不收費。</p>
+
+          <dl class="contact-info">
+            <div><dt>工作室</dt><dd>台中市西區・採預約制</dd></div>
+            <div><dt>時間</dt><dd>週二至週六 10:00–18:00</dd></div>
+            <div><dt>Email</dt><dd>hello@qibai.example</dd></div>
+          </dl>
+        </div>
+
+        <div class="form-wrap">
+          <form class="contact-form" novalidate>
+            <div class="field">
+              <label for="f-name">姓名 <span class="req">必填</span></label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required>
+              <p class="error-msg" id="err-name"></p>
+            </div>
+
+            <div class="field">
+              <label for="f-email">Email <span class="req">必填</span></label>
+              <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+              <p class="error-msg" id="err-email"></p>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="f-type">空間類型 <span class="req">必填</span></label>
+                <select id="f-type" name="type" required>
+                  <option value="">請選擇</option>
+                  <option value="residential">住宅</option>
+                  <option value="teahouse">茶室</option>
+                  <option value="minsu">民宿</option>
+                  <option value="shop">選物店</option>
+                  <option value="other">其他</option>
+                </select>
+                <p class="error-msg" id="err-type"></p>
+              </div>
+              <div class="field">
+                <label for="f-size">坪數 <span class="opt">選填</span></label>
+                <input id="f-size" name="size" type="number" inputmode="numeric" min="1" max="999" placeholder="例如 32">
+                <p class="error-msg" id="err-size"></p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="f-msg">想聊的內容 <span class="req">必填</span></label>
+              <textarea id="f-msg" name="message" rows="5" required
+                placeholder="例如：家裡有兩個小孩，希望客廳旁有一個能喝茶的角落。"></textarea>
+              <p class="error-msg" id="err-msg"></p>
+            </div>
+
+            <button type="submit" class="btn btn-primary submit-btn">送出預約</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+
+          <!-- 送出成功後顯示 -->
+          <div class="form-success" hidden tabindex="-1">
+            <span class="success-seal" aria-hidden="true">已<br>收</span>
+            <h3>已收到你的預約</h3>
+            <p class="success-text"></p>
+            <button type="button" class="btn btn-ghost success-reset">再填一份</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== 8. 頁尾 ===== -->
+  <footer class="site-footer">
+    <div class="section-inner footer-inner">
+      <div class="footer-brand">
+        <span class="seal seal-small" aria-hidden="true">棲<br>白</span>
+        <p class="footer-name">棲白 QIBAI Studio</p>
+        <p class="footer-tag">以東方的留白，安放現代的生活。</p>
+      </div>
+      <nav class="footer-nav" aria-label="頁尾選單">
+        <a href="#philosophy">理念</a>
+        <a href="#works">作品</a>
+        <a href="#tour">空間導覽</a>
+        <a href="#process">流程</a>
+        <a href="#contact">預約諮詢</a>
+      </nav>
+      <div class="footer-note">
+        <p>本網站為網頁設計課堂練習作品，品牌、案例與聯絡資訊皆為虛構，非實際營業。</p>
+        <p>案例照片取自網路，僅供課堂教學使用，版權屬原作者所有。</p>
+        <p>© 2026 棲白 QIBAI Studio</p>
+      </div>
+      <a class="back-top" href="#top">回到頂端 ↑</a>
+    </div>
+  </footer>
+
+  <!-- ===== 4. 專案詳情面板（點卡片後從右側滑出） ===== -->
+  <div class="panel-backdrop" hidden></div>
+  <aside class="project-panel" role="dialog" aria-modal="true" aria-labelledby="panel-title" hidden>
+    <button type="button" class="panel-close" aria-label="關閉專案詳情">
+      <span aria-hidden="true">關閉</span>
+    </button>
+
+    <div class="panel-scroll">
+      <!-- 主圖與細節視角 -->
+      <div class="panel-media">
+        <div class="panel-photo">
+          <img class="panel-img" src="" alt="">
+        </div>
+        <div class="panel-thumbs" role="group" aria-label="切換視角"></div>
+      </div>
+
+      <div class="panel-body">
+        <p class="eyebrow panel-eyebrow"></p>
+        <h2 class="panel-title" id="panel-title"></h2>
+
+        <!-- 空間資訊 -->
+        <dl class="panel-meta"></dl>
+
+        <!-- 案例敘事：需求 → 設計理念 → 材料（GSAP 依序呈現） -->
+        <section class="story-step">
+          <h3>屋主的需求</h3>
+          <p class="panel-need"></p>
+        </section>
+        <section class="story-step">
+          <h3>設計理念</h3>
+          <p class="panel-concept"></p>
+        </section>
+        <section class="story-step">
+          <h3>主要材料</h3>
+          <ul class="material-list"></ul>
+        </section>
+
+        <a class="btn btn-primary panel-cta story-step" href="#contact">預約類似的設計</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- GSAP 核心、ScrollTrigger、Flip（cdnjs） -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/Flip.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/philosophy.js"></script>
+  <script src="js/works.js"></script>
+  <script src="js/tour.js"></script>
+  <script src="js/contact.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/ink-bg.js"></script>
+</body>
+</html>
